@@ -1,5 +1,0 @@
-bin/mysql-9.0/bin/mysqld.exe filter=lfs diff=lfs merge=lfs -text
-bin/mysql-9.0/lib/mysqlclient.lib filter=lfs diff=lfs merge=lfs -text
-bin/mysql-9.0/bin/mysqld.pdb filter=lfs diff=lfs merge=lfs -text
-bin/mysql-9.0/bin filter=lfs diff=lfs merge=lfs -text
-bin/mysql-9.0/lib filter=lfs diff=lfs merge=lfs -text
