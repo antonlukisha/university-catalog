@@ -1,0 +1,4 @@
+CREATE TABLE faculties (
+	faculty_id INT AUTO_INCREMENT PRIMARY KEY,
+	faculty_name VARCHAR(100) NOT NULL
+) ENGINE=InnoDB;

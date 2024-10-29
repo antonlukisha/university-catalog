@@ -1,0 +1,5 @@
+CREATE TABLE leaders (
+	leader_id INT AUTO_INCREMENT PRIMARY KEY,
+	student_id INT UNIQUE,
+	FOREIGN KEY (student_id) REFERENCES student(student_id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
