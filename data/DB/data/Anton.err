@@ -88,3 +88,48 @@
 2024-10-25T02:50:07.938284Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
 2024-10-25T02:50:07.984646Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060
 2024-10-25T02:50:07.984758Z 0 [System] [MY-010931] [Server] C:\Server\bin\mysql-9.0\bin\mysqld.exe: ready for connections. Version: '9.0.1'  socket: ''  port: 3306  MySQL Community Server - GPL.
+2024-10-31T03:57:22.166099Z 0 [System] [MY-013105] [Server] C:\Server\bin\mysql-9.0\bin\mysqld.exe: Normal shutdown.
+2024-10-31T03:57:23.428071Z 0 [System] [MY-010910] [Server] C:\Server\bin\mysql-9.0\bin\mysqld.exe: Shutdown complete (mysqld 9.0.1)  MySQL Community Server - GPL.
+2024-10-31T03:57:23.428757Z 0 [System] [MY-015016] [Server] MySQL Server - end.
+2024-11-27T10:24:02.045019Z 0 [System] [MY-015017] [Server] MySQL Server Initialization - start.
+2024-11-27T10:24:02.054369Z 0 [Warning] [MY-010915] [Server] 'NO_ZERO_DATE', 'NO_ZERO_IN_DATE' and 'ERROR_FOR_DIVISION_BY_ZERO' sql modes should be used with strict mode. They will be merged with strict mode in a future release.
+2024-11-27T10:24:02.054906Z 0 [System] [MY-013169] [Server] C:\NSUData\bin\mysql-9.0\bin\mysqld.exe (mysqld 9.0.1) initializing of server in progress as process 39272
+2024-11-27T10:24:02.082733Z 0 [ERROR] [MY-010457] [Server] --initialize specified but the data directory has files in it. Aborting.
+2024-11-27T10:24:02.091666Z 0 [ERROR] [MY-013236] [Server] The designated data directory c:\NSUData\data\DB\data\ is unusable. You can remove all files that the server added to it.
+2024-11-27T10:24:02.094219Z 0 [ERROR] [MY-010119] [Server] Aborting
+2024-11-27T10:24:02.094825Z 0 [System] [MY-015018] [Server] MySQL Server Initialization - end.
+2024-11-27T10:31:52.035253Z 0 [System] [MY-015017] [Server] MySQL Server Initialization - start.
+2024-11-27T10:31:52.046956Z 0 [Warning] [MY-010915] [Server] 'NO_ZERO_DATE', 'NO_ZERO_IN_DATE' and 'ERROR_FOR_DIVISION_BY_ZERO' sql modes should be used with strict mode. They will be merged with strict mode in a future release.
+2024-11-27T10:31:52.047201Z 0 [System] [MY-013169] [Server] C:\NSUData\bin\mysql-9.0\bin\mysqld.exe (mysqld 9.0.1) initializing of server in progress as process 8132
+2024-11-27T10:31:52.049340Z 0 [ERROR] [MY-010457] [Server] --initialize specified but the data directory has files in it. Aborting.
+2024-11-27T10:31:52.049589Z 0 [ERROR] [MY-013236] [Server] The designated data directory c:\NSUData\data\DB\data\ is unusable. You can remove all files that the server added to it.
+2024-11-27T10:31:52.052004Z 0 [ERROR] [MY-010119] [Server] Aborting
+2024-11-27T10:31:52.052655Z 0 [System] [MY-015018] [Server] MySQL Server Initialization - end.
+2024-11-27T10:37:53.736569Z 0 [System] [MY-015017] [Server] MySQL Server Initialization - start.
+2024-11-27T10:37:53.748299Z 0 [Warning] [MY-010915] [Server] 'NO_ZERO_DATE', 'NO_ZERO_IN_DATE' and 'ERROR_FOR_DIVISION_BY_ZERO' sql modes should be used with strict mode. They will be merged with strict mode in a future release.
+2024-11-27T10:37:53.748667Z 0 [System] [MY-013169] [Server] C:\NSUData\bin\mysql-9.0\bin\mysqld.exe (mysqld 9.0.1) initializing of server in progress as process 53864
+2024-11-27T10:37:53.757576Z 0 [ERROR] [MY-010457] [Server] --initialize specified but the data directory has files in it. Aborting.
+2024-11-27T10:37:53.757826Z 0 [ERROR] [MY-013236] [Server] The designated data directory c:\NSUData\data\DB\data\ is unusable. You can remove all files that the server added to it.
+2024-11-27T10:37:53.760264Z 0 [ERROR] [MY-010119] [Server] Aborting
+2024-11-27T10:37:53.760812Z 0 [System] [MY-015018] [Server] MySQL Server Initialization - end.
+2024-11-27T10:42:28.179707Z 0 [System] [MY-015015] [Server] MySQL Server - start.
+2024-11-27T10:42:28.292940Z 0 [Warning] [MY-010915] [Server] 'NO_ZERO_DATE', 'NO_ZERO_IN_DATE' and 'ERROR_FOR_DIVISION_BY_ZERO' sql modes should be used with strict mode. They will be merged with strict mode in a future release.
+2024-11-27T10:42:28.293170Z 0 [System] [MY-010116] [Server] C:\NSUData\bin\mysql-9.0\bin\mysqld.exe (mysqld 9.0.1) starting as process 14908
+2024-11-27T10:42:28.386362Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2024-11-27T10:42:28.836596Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2024-11-27T10:42:29.269011Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2024-11-27T10:42:29.269392Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2024-11-27T10:42:29.342548Z 0 [System] [MY-010931] [Server] C:\NSUData\bin\mysql-9.0\bin\mysqld.exe: ready for connections. Version: '9.0.1'  socket: ''  port: 3306  MySQL Community Server - GPL.
+2024-11-27T10:42:29.342545Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060
+2024-11-27T11:34:31.659797Z 0 [System] [MY-013105] [Server] C:\NSUData\bin\mysql-9.0\bin\mysqld.exe: Normal shutdown.
+2024-11-27T11:34:32.836339Z 0 [System] [MY-010910] [Server] C:\NSUData\bin\mysql-9.0\bin\mysqld.exe: Shutdown complete (mysqld 9.0.1)  MySQL Community Server - GPL.
+2024-11-27T11:34:32.836828Z 0 [System] [MY-015016] [Server] MySQL Server - end.
+2024-11-27T11:34:58.703492Z 0 [System] [MY-015015] [Server] MySQL Server - start.
+2024-11-27T11:34:59.391842Z 0 [Warning] [MY-010915] [Server] 'NO_ZERO_DATE', 'NO_ZERO_IN_DATE' and 'ERROR_FOR_DIVISION_BY_ZERO' sql modes should be used with strict mode. They will be merged with strict mode in a future release.
+2024-11-27T11:34:59.393239Z 0 [System] [MY-010116] [Server] C:\NSUData\bin\mysql-9.0\bin\mysqld.exe (mysqld 9.0.1) starting as process 6460
+2024-11-27T11:34:59.483945Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2024-11-27T11:35:00.061414Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2024-11-27T11:35:00.693288Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2024-11-27T11:35:00.693670Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2024-11-27T11:35:00.834119Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060
+2024-11-27T11:35:00.834452Z 0 [System] [MY-010931] [Server] C:\NSUData\bin\mysql-9.0\bin\mysqld.exe: ready for connections. Version: '9.0.1'  socket: ''  port: 3306  MySQL Community Server - GPL.
