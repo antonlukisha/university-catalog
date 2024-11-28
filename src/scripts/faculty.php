@@ -8,8 +8,7 @@ require_once '../includes/db_connect.php';
  * @param int $faculty_id
  * @return array|null
  */
- function getFacultyById(PDO $pdo, int $faculty_id): ?array
- {
+ function getFacultyById(PDO $pdo, int $faculty_id): ?array {
      $query = "SELECT * FROM faculties WHERE faculty_id = :faculty_id;";
      $stmt = $pdo->prepare($query);
      $stmt->execute(['faculty_id' => $faculty_id]);
@@ -23,8 +22,7 @@ require_once '../includes/db_connect.php';
  * @param int $faculty_id
  * @return array|null
  */
- function getGroups(PDO $pdo, int $faculty_id): ?array
- {
+ function getGroups(PDO $pdo, int $faculty_id): ?array {
      $query = "SELECT group_id, group_name FROM study_groups WHERE faculty_id = :faculty_id;";
      $stmt = $pdo->prepare($query);
      $stmt->execute(['faculty_id' => $faculty_id]);

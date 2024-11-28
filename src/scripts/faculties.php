@@ -1,14 +1,14 @@
 <?php
+session_start();
 require_once '../includes/db_connect.php';
 
 /**
  * Get all faculties.
  *
  * @param PDO $pdo
- * @return array
+ * @return array|null
  */
- function getAllFaculties(PDO $pdo): array
- {
+ function getAllFaculties(PDO $pdo): ?array {
      $query = "SELECT * FROM faculties;";
      $stmt = $pdo->prepare($query);
      $stmt->execute();
@@ -16,8 +16,9 @@ require_once '../includes/db_connect.php';
  }
 
  /*** Get all faculties data***/
- $faculties = getAllFaculties($pdo);
-
+$faculties = getAllFaculties($pdo);
+ /*** Get role***/
+ $role = $_SESSION['role'] ?: 'USER';
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +42,15 @@ require_once '../includes/db_connect.php';
         <?php foreach ($faculties as $faculty): ?>
             <tr>
                 <td><?php echo htmlspecialchars($faculty['faculty_id']); ?></td>
-                <td><a href="faculty.php?faculty_id=<?php echo urlencode($faculty['faculty_id']); ?>"><?php echo htmlspecialchars($faculty['faculty_name']); ?></a></td>
+                <td>
+                  <?php if ($role !== 'USER'): ?>
+                    <a href="faculty.php?faculty_id=<?php echo urlencode($faculty['faculty_id']); ?>">
+                      <?php echo htmlspecialchars($faculty['faculty_name']); ?>
+                    </a>
+                  <?php else: ?>
+                    <?php echo htmlspecialchars($faculty['faculty_name']); ?>
+                  <?php endif; ?>
+                </td>
             </tr>
         <?php endforeach; ?>
     </table>

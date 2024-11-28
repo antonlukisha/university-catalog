@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once '../includes/db_connect.php';
 
 /**
@@ -25,7 +26,9 @@ require_once '../includes/db_connect.php';
  }
 
  /*** Get all courses data***/
- $courses = getAllCourses($pdo);
+$courses = getAllCourses($pdo);
+ /*** Get role***/
+ $role = $_SESSION['role'] ?: 'USER';
 ?>
 
 <!DOCTYPE html>
@@ -66,7 +69,9 @@ require_once '../includes/db_connect.php';
             </tr>
         <?php endforeach; ?>
     </table>
-    <br>
-    <a href="add_course.php">Добавить новый факультатив</a>
+    <?php if ($role !== 'USER' && $role !== 'STUDENT'): ?>
+      <br>
+      <a href="add_course.php">Добавить новый факультатив</a>
+    <?php endif; ?>
 </body>
 </html>

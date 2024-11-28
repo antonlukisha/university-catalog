@@ -1,13 +1,14 @@
 <?php
+session_start();
 require_once '../includes/db_connect.php';
 
 /**
  * Get group's data with faculty and leader.
  *
  * @param PDO $pdo
- * @return array
+ * @return array|null
  */
-function getGroups(PDO $pdo): array {
+function getGroups(PDO $pdo): ?array {
     $query = "
         SELECT
             g.group_id,
@@ -26,6 +27,8 @@ function getGroups(PDO $pdo): array {
 
 /*** Get all groups data***/
 $groups = getGroups($pdo);
+/*** Get role***/
+$role = $_SESSION['role'] ?: 'USER';
 ?>
 
 <!DOCTYPE html>
@@ -41,15 +44,16 @@ $groups = getGroups($pdo);
         <a href="../index.php">Домашняя страница</a>
     </nav>
     <br>
-    <?php if (!empty($groups)): ?>
       <table border="1">
           <thead>
               <tr>
                   <th>ID</th>
                   <th>Название группы</th>
                   <th>Факультет</th>
-                  <th>Староста</th>
-                  <th>Действия</th>
+                  <?php if ($role !== 'USER'): ?>
+                    <th>Староста</th>
+                    <th>Действия</th>
+                  <?php endif; ?>
               </tr>
           </thead>
           <tbody>
@@ -58,19 +62,18 @@ $groups = getGroups($pdo);
                   <td><?php echo htmlspecialchars($group['group_id']); ?></td>
                   <td><?php echo htmlspecialchars($group['group_name']); ?></td>
                   <td><?php echo htmlspecialchars($group['faculty_name']); ?></td>
+                  <?php if ($role !== 'USER'): ?>
                   <td><?php echo htmlspecialchars($group['leader_name'] ?? '—'); ?></td>
-                  <td>
-                      <a href="group.php?group_id=<?php echo urlencode($group['group_id']); ?>">
-                          Просмотр
-                      </a>
-                  </td>
+                    <td>
+                        <a href="group.php?group_id=<?php echo urlencode($group['group_id']); ?>">
+                            Просмотр
+                        </a>
+                    </td>
+                  <?php endif; ?>
               </tr>
             <?php endforeach; ?>
           </tbody>
       </table>
-    <?php else: ?>
-        <p>Список групп пуст.</p>
-    <?php endif; ?>
     <br>
     <a href="../index.php">Вернуться на домашнюю страницу</a>
 </body>

@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once '../includes/db_connect.php';
 
 /**
@@ -96,6 +97,8 @@ if (!$group) {
 $facultyName = getFacultyNameById($pdo, $group['faculty_id']);
 $leaderInfo = getLeader($pdo, $group['leader_id']);
 $students = getStudentsByGroup($pdo, $group_id);
+/*** Get role***/
+$role = $_SESSION['role'] ?: 'USER';
 ?>
 
 <!DOCTYPE html>
@@ -166,25 +169,25 @@ $students = getStudentsByGroup($pdo, $group_id);
             </tr>
         <?php endif; ?>
     </table>
-
-    <br>
-    <h2>Установить старосту группы</h2>
-    <form action="set_leader.php" method="POST">
-        <input type="hidden" name="group_id" value="<?php echo htmlspecialchars($group_id); ?>">
-        <label>
-          Выберите студента:
-        </label>
-        <select name="leader_id" required>
-            <option value="">Нет старосты</option>
-            <?php foreach ($students as $student): ?>
-                <option value="<?php echo $student['student_id']; ?>" <?php echo ($student['student_id'] == $group['leader_id']) ? 'selected' : ''; ?>>
-                    <?php echo htmlspecialchars($student['last_name'] . ' ' . $student['first_name'] . ' ' . $student['patronymic']); ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-        <input type="submit" value="Сделать старостой">
-    </form>
-
+    <?php if ($role === 'ADMIN' || $role === 'TEACHER'): ?>
+      <br>
+      <h2>Установить старосту группы</h2>
+      <form action="set_leader.php" method="POST">
+          <input type="hidden" name="group_id" value="<?php echo htmlspecialchars($group_id); ?>">
+          <label>
+            Выберите студента:
+          </label>
+          <select name="leader_id" required>
+              <option value="">Нет старосты</option>
+              <?php foreach ($students as $student): ?>
+                  <option value="<?php echo $student['student_id']; ?>" <?php echo ($student['student_id'] == $group['leader_id']) ? 'selected' : ''; ?>>
+                      <?php echo htmlspecialchars($student['last_name'] . ' ' . $student['first_name'] . ' ' . $student['patronymic']); ?>
+                  </option>
+              <?php endforeach; ?>
+          </select>
+          <input type="submit" value="Сделать старостой">
+      </form>
+    <?php endif; ?>
     <br>
     <a href="groups.php">Вернуться к списку групп</a>
 </body>
