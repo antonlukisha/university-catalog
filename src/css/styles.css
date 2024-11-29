@@ -10,6 +10,13 @@
          url('../fonts/acrom-medium.svg#acrom-medium') format('svg'); /* Legacy Browsers */
 }
 
+@font-face {
+    font-family: 'Acrom-Light';
+    src: url('../fonts/Acrom-Light.woff2') format('woff2'),
+         url('../fonts/Acrom-Light.woff') format('woff'),
+         url('../fonts/Acrom-Light.ttf') format('truetype');
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -126,12 +133,14 @@ textarea {
 }
 
 textarea {
+    font-family: 'Acrom-Light';
     height: 100px;
     font-family: Arial, sans-serif;
     font-size: 16px;
 }
 
 form input[type="submit"] {
+    font-family: 'Acrom-Light';
     background-color: #72c81f;
     color: white;
     padding: 10px;
@@ -185,6 +194,7 @@ form input[type="submit"]:hover {
 }
 
 a {
+    font-family: 'Acrom-Medium';
     color: #72c81f;
     text-decoration: none;
     padding: 5px 10px;
