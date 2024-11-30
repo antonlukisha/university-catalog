@@ -195,5 +195,10 @@ $role = $_SESSION['role'] ?: 'USER';
     <?php endif; ?>
     <br>
     <a href="students.php">Вернуться к списку студентов</a>
+    <?php if ($role === 'STUDENT' || $role === 'ADMIN'): ?>
+      <a href="edit_student.php?student_id=<?php echo urlencode($student['student_id']); ?>">
+        Изменить данные
+      </a>
+    <?php endif; ?>
 </body>
 </html>
