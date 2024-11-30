@@ -143,5 +143,10 @@ $role = $_SESSION['role'] ?: 'USER';
     </table>
     <br>
     <a href="courses.php">Вернуться к списку факультативов</a>
+    <?php if ($role === 'TEACHER' || $role === 'ADMIN'): ?>
+      <a href="edit_course.php?course_id=<?php echo urlencode($course['course_id']); ?>">
+        Изменить данные
+      </a>
+    <?php endif; ?>
 </body>
 </html>

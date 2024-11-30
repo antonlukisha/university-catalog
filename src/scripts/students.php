@@ -18,6 +18,7 @@ function getAllStudents(PDO $pdo, $sort_column, $sort_order): ?array {
   return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+
 /*** Change filtered parameters ***/
 $sort_column = $_GET['sort'] ?? 'student_id';
 $sort_order = ($_GET['order'] ?? 'asc') === 'desc' ? 'desc' : 'asc';
