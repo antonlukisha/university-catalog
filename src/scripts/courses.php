@@ -28,6 +28,7 @@ require_once '../includes/db_connect.php';
  /**
  * Check validation of student ID.
  *
+ * @param PDO $pdo
  * @param int $student_id
  * @return bool
  */
@@ -41,6 +42,7 @@ function isStudentValid(PDO $pdo, int $student_id): bool {
 /**
  * Add student to course.
  *
+ * @param PDO $pdo
  * @param int $student_id
  * @param int $course_id
  * @return bool
@@ -54,6 +56,7 @@ function addStudentToCourse(PDO $pdo, int $student_id, int $course_id): bool {
 /**
  * Check .
  *
+ * @param PDO $pdo
  * @param int $student_id
  * @param int $course_id
  * @return bool
@@ -64,6 +67,28 @@ function hasWroteStudentToCourse(PDO $pdo, int $student_id, int $course_id): boo
     return $stmt->fetchColumn();
 }
 
+/**
+ * Fullness of course.
+ *
+ * @param PDO $pdo
+ * @param int $course_id
+ * @return bool
+ */
+function isCourseFull(PDO $pdo, int $course_id): bool {
+    $query = "
+        SELECT
+            COUNT(*) AS enrolled,
+            (SELECT capacity FROM courses WHERE course_id = :course_id) AS capacity
+        FROM student_courses
+        WHERE course_id = :course_id
+    ";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute([':course_id' => $course_id]);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result['enrolled'] >= $result['capacity'];
+}
+
+
  /*** Get all courses data***/
 $courses = getAllCourses($pdo);
 /*** Get role***/
@@ -73,14 +98,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['student_id'], $_POST[
     $student_id = intval($_POST['student_id']);
     $course_id = intval($_POST['course_id']);
 
-    if (isStudentValid($pdo, $student_id) && !hasWroteStudentToCourse($pdo, $student_id, $course_id)) {
-        addStudentToCourse($pdo, $student_id, $course_id);
-        $message = "Успешно";
-        $courseID = $course_id;
-    } else {
-        $message = "Неверный ID";
-        $courseID = $course_id;
-    }
+    if (isStudentValid($pdo, $student_id)) {
+      if (hasWroteStudentToCourse($pdo, $student_id, $course_id)) {
+          $message = "Уже записан";
+      } elseif (isCourseFull($pdo, $course_id)) {
+          $message = "Переполнен";
+      } else {
+          if (addStudentToCourse($pdo, $student_id, $course_id)) {
+              $message = "Успешно";
+          } else {
+              $message = "Ошибка";
+          }
+      }
+  } else {
+      $message = "Некорректный ID";
+  }
+  $courseID = $course_id;
 }
 ?>
 

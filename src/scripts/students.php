@@ -18,6 +18,37 @@ function getAllStudents(PDO $pdo, $sort_column, $sort_order): ?array {
   return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+/**
+ * Delete a student by ID.
+ *
+ * @param PDO $pdo
+ * @param int $student_id
+ * @return bool
+ */
+function deleteStudent(PDO $pdo, int $student_id): bool {
+    try {
+        $pdo->beginTransaction();
+        $stmt = $pdo->prepare("DELETE FROM students WHERE student_id = :student_id");
+        $stmt->execute(['student_id' => $student_id]);
+
+        $pdo->commit();
+        return true;
+    } catch (Exception $exception) {
+        $pdo->rollBack();
+        return false;
+    }
+}
+
+/*** Delete student ***/
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_student_id'])) {
+    $student_id = intval($_POST['delete_student_id']);
+    if (deleteStudent($pdo, $student_id)) {
+      $message = "Успешно";
+    } else {
+      $message = "Ошибка";
+    }
+}
+
 
 /*** Change filtered parameters ***/
 $sort_column = $_GET['sort'] ?? 'student_id';
@@ -78,6 +109,7 @@ $role = $_SESSION['role'] ?: 'USER';
                   <?php endif; ?>
                   <?php if ($role === 'ADMIN'): ?>
                     <th>Редактирование</th>
+                    <th>Удаление</th>
                   <?php endif; ?>
               </tr>
           </thead>
@@ -100,6 +132,12 @@ $role = $_SESSION['role'] ?: 'USER';
                             <a href="edit_student.php?student_id=<?php echo urlencode($student['student_id']); ?>">
                                 Изменить
                             </a>
+                          </td>
+                          <td>
+                            <form method="post" style="padding: 0; background: rgba(0, 0, 0, 0); box-shadow: none;" onsubmit="return confirm('Вы уверены, что хотите удалить этого студента?');">
+                                <input type="hidden" name="delete_student_id" value="<?php echo $student['student_id']; ?>">
+                                <button type="submit" style="font-size: 16px; padding: 5px 10px;">Удалить</button>
+                            </form>
                         </td>
                       <?php endif; ?>
                   </tr>
