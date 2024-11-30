@@ -20,7 +20,7 @@ function getAllStudents(PDO $pdo, $sort_column, $sort_order): ?array {
 
 /*** Change filtered parameters ***/
 $sort_column = $_GET['sort'] ?? 'student_id';
-$sort_order = ($_GET['order'] ?? 'desc') === 'asc' ? 'asc' : 'desc';
+$sort_order = ($_GET['order'] ?? 'asc') === 'desc' ? 'desc' : 'asc';
 
 /*** Get all students data***/
 $students = getAllStudents($pdo, $sort_column, $sort_order);
@@ -40,6 +40,9 @@ $role = $_SESSION['role'] ?: 'USER';
     <h1>Все студенты</h1>
     <nav>
         <a href="../index.php">Домашняя страница</a>
+        <?php if ($role !== 'USER'): ?> |
+         <a href="groups.php">Группы</a>
+        <?php endif; ?>
     </nav>
     <a class="filter-toggle-btn" onclick="toggleFilter()">Показать/скрыть фильтр</a>
     <br>

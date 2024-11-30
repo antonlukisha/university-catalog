@@ -42,6 +42,9 @@ $role = $_SESSION['role'] ?: 'USER';
     <h1>Все группы</h1>
     <nav>
         <a href="../index.php">Домашняя страница</a>
+        <?php if ($role !== 'USER'): ?> |
+         <a href="students.php">Студенты</a>
+        <?php endif; ?>
     </nav>
     <br>
       <table border="1">

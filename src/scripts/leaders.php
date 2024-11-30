@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once '../includes/db_connect.php';
 
 
@@ -53,11 +54,13 @@ function getGroups($pdo): array {
 /*** Change filtered parameters ***/
 $groupFilter = $_GET['group'] ?? '';
 $sortColumn = $_GET['sort'] ?? 'last_name';
-$sortOrder = ($_GET['order'] ?? 'desc') === 'asc' ? 'asc' : 'desc';
+$sortOrder = ($_GET['order'] ?? 'asc') === 'desc' ? 'desc' : 'asc';
 
 /*** Get data ***/
 $leaders = getLeaders($pdo, $groupFilter, $sortColumn, $sortOrder);
 $groups = getGroups($pdo);
+/*** Get role***/
+$role = $_SESSION['role'] ?: 'USER';
 ?>
 
 <!DOCTYPE html>
@@ -71,6 +74,9 @@ $groups = getGroups($pdo);
     <h1>Список старост</h1>
     <nav>
         <a href="../index.php">Домашняя страница</a>
+        <?php if ($role !== 'USER'): ?> |
+         <a href="groups.php">Группы</a>
+        <?php endif; ?>
     </nav>
 
     <a class="filter-toggle-btn" onclick="toggleFilter()">Показать/скрыть фильтр</a>

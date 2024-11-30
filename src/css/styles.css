@@ -125,6 +125,7 @@ form select,
 form input[type="date"],
 form input[type="number"],
 textarea {
+    font-family: 'Acrom-Medium';
     width: calc(100% - 20px);
     padding: 10px;
     margin-bottom: 15px;
@@ -206,6 +207,15 @@ a:hover {
     background-color: #72c81f;
     color: white;
     box-shadow: 0 2px 5px rgba(0, 169, 28, 0.5);
+}
+
+button {
+  font-family: 'Acrom-Medium';
+  padding: 5px 10px;
+  background-color: #72c81f;
+  border-radius: 5px;
+  border: 0;
+  color: white;
 }
 
 a:active {

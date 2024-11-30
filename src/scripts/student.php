@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once '../includes/db_connect.php';
 
 /**
@@ -14,6 +15,40 @@ function getStudentById(PDO $pdo, int $student_id): ?array
     $stmt = $pdo->prepare($query);
     $stmt->execute(['student_id' => $student_id]);
     return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+
+/**
+ * Get courses by student ID.
+ *
+ * @param PDO $pdo
+ * @param int $student_id
+ * @return array|null
+ */
+function getCourseByStudentID(PDO $pdo, int $student_id): ?array {
+  $query = "
+      SELECT c.course_id, c.course_name
+      FROM courses c
+      JOIN student_courses sc ON c.course_id = sc.course_id
+      WHERE sc.student_id = :student_id;
+  ";
+  $stmt = $pdo->prepare($query);
+  $stmt->execute(['student_id' => $student_id]);
+  return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+/**
+ * Remove course from student.
+ *
+ * @param PDO $pdo
+ * @param int $student_id
+ * @param int $course_id
+ * @return bool
+ */
+function removeCourse(PDO $pdo, int $student_id, int $course_id): bool {
+    $query = "DELETE FROM student_courses WHERE student_id = :student_id AND course_id = :course_id;";
+    $stmt = $pdo->prepare($query);
+    return $stmt->execute(['student_id' => $student_id, 'course_id' => $course_id]);
 }
 
 /**
@@ -45,9 +80,18 @@ if (!$student) {
     die("Студент не найден.");
 }
 
+/*** Removing a course ***/
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['course_id'])) {
+    $course_id = intval($_POST['course_id']);
+    removeCourse($pdo, $student_id, $course_id);
+}
+
+$courses = getCourseByStudentID($pdo, $student_id);
+
 /*** Get student's group ***/
 $group_name = $student['group_id'] ? getGroupNameById($pdo, $student['group_id']) : null;
-
+/*** Get role***/
+$role = $_SESSION['role'] ?: 'USER';
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -128,6 +172,27 @@ $group_name = $student['group_id'] ? getGroupNameById($pdo, $student['group_id']
             </td>
         </tr>
     </table>
+    <br>
+    <?php if ($role === 'STUDENT' || $role === 'ADMIN'): ?>
+      <h2>Факультативы</h2>
+      <table border="1">
+          <tr>
+              <th>Название</th>
+              <th>Действия</th>
+          </tr>
+          <?php foreach ($courses as $course): ?>
+              <tr>
+                  <td><?php echo htmlspecialchars($course['course_name']); ?></td>
+                  <td>
+                    <form method="post" style="background: rgba(0, 0, 0, 0); box-shadow: none; font-size: 16px; padding: 5px 10px;">
+                        <input type="hidden" name="course_id" value="<?php echo $course['course_id']; ?>">
+                        <button type="submit" name="action" value="remove" style="font-size: 16px; padding: 5px 10px;">Удалить</button>
+                    </form>
+                  </td>
+              </tr>
+          <?php endforeach; ?>
+      </table>
+    <?php endif; ?>
     <br>
     <a href="students.php">Вернуться к списку студентов</a>
 </body>
